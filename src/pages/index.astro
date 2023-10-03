@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/layout.astro'
+---
+
+<Layout title='Notes'>
+  <main></main>
+</Layout>
+
+<script>
+  import { notes } from '@/store'
+
+  notes.subscribe((notes) => {
+    console.log(notes)
+  })
+</script>

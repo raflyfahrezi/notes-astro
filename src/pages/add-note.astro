@@ -1,0 +1,57 @@
+---
+import Layout from '@/layouts/layout.astro'
+import Wrapper from '@/components/wrapper.astro'
+---
+
+<Layout title='Add New Note'>
+  <Wrapper>
+    <div class='flex flex-col gap-4'>
+      <div class='form-control w-full'>
+        <label class='label'>
+          <span class='label-text'>Title</span>
+        </label>
+        <input
+          type='text'
+          id='add-note-form-title'
+          placeholder='Type here'
+          class='input input-bordered w-full'
+        />
+      </div>
+      <div class='form-control w-full'>
+        <label class='label'>
+          <span class='label-text'>Description</span>
+        </label>
+        <textarea
+          id='add-note-form-description'
+          class='textarea textarea-bordered h-24'
+          placeholder='Description'></textarea>
+      </div>
+      <div class='w-full flex justify-end'>
+        <button class='btn' id='add-note-form-create'>Create</button>
+      </div>
+    </div>
+  </Wrapper>
+</Layout>
+
+<script>
+  import { notes } from '@/store'
+
+  const createButton = document.getElementById('add-note-form-create')
+
+  createButton?.addEventListener('click', () => {
+    const titleValue = document.getElementById(
+      'add-note-form-title'
+    ) as HTMLInputElement
+    const descriptionValue = document.getElementById(
+      'add-note-form-description'
+    ) as HTMLInputElement
+
+    const currentNotes = notes.get()
+    const newNote = {
+      title: titleValue?.value ?? '',
+      description: descriptionValue?.value ?? '',
+    }
+
+    notes.set([...currentNotes, newNote])
+  })
+</script>
